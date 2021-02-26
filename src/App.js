@@ -1,31 +1,36 @@
 import React, { useEffect } from 'react';
-import logo from './logo.svg';
-import './App.css';
-import axios from 'axios';
+import LoginForm from './components/LoginForm';
+import Notification from './components/Notification';
+import { useDispatch } from 'react-redux';
+import { login } from './reducers/usersReducer';
+import pswTools from './services/passwords';
 
-function App() {
-  useEffect( () => {
-    console.log('jojojojojo');
-    axios.get('/ping');
+const style = {
+  backgroundColor: '#1E1B1B',
+  color: '#B3A3A3'
+};
+
+const App = () => {
+  const dispatch = useDispatch();
+
+  // when app is loaded
+  useEffect(() => {
+    const loggedUserJSON = window.localStorage.getItem('uDetails');
+    if (loggedUserJSON) {
+      const user = JSON.parse(loggedUserJSON);
+      dispatch(login(user));
+      pswTools.setToken(user.token);
+    }
+  // ignoring lint as i need this only when app starts.
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+
+  return(
+    <div style= {style}>
+      <LoginForm/>
+      <Notification/>
     </div>
   );
-}
+};
 
 export default App;
