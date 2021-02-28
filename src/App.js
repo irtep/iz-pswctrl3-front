@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
 import LoginForm from './components/LoginForm';
+import MainScreen from './components/MainScreen';
 import Notification from './components/Notification';
-import { useDispatch } from 'react-redux';
-import { login } from './reducers/usersReducer';
+import { useDispatch, useSelector } from 'react-redux';
+import { autoLogin } from './reducers/usersReducer';
 import pswTools from './services/passwords';
 
 const style = {
@@ -12,13 +13,14 @@ const style = {
 
 const App = () => {
   const dispatch = useDispatch();
+  const loggedIn = useSelector(state => state.users);
 
   // when app is loaded
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('uDetails');
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON);
-      dispatch(login(user));
+      dispatch(autoLogin(loggedUserJSON));
       pswTools.setToken(user.token);
     }
   // ignoring lint as i need this only when app starts.
@@ -27,8 +29,10 @@ const App = () => {
 
   return(
     <div style= {style}>
-      <LoginForm/>
       <Notification/>
+      {loggedIn.length === 0 ?
+        <LoginForm/> :
+        <MainScreen/> }
     </div>
   );
 };
