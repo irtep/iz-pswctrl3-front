@@ -1,5 +1,17 @@
 var timeouts = [];
 
+const notiReducer = (state = '', action) => {
+  switch (action.type) {
+    case 'NOTIFICATION':
+      return action.data
+    case 'CLEAR':
+      return ''
+    default:
+      return state
+  }
+};
+
+//action creators
 export const addNotification = (content, timer) => {
   for (let i = 0; i < timeouts.length; i++) {
     clearTimeout(timeouts[i]);
@@ -23,17 +35,6 @@ const clearNotification = () => {
   return {
     type: 'CLEAR',
     data: ''
-  }
-};
-
-const notiReducer = (state = '', action) => {
-  switch (action.type) {
-    case 'NOTIFICATION':
-      return action.data
-    case 'CLEAR':
-      return ''
-    default:
-      return state
   }
 };
 

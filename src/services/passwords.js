@@ -1,6 +1,5 @@
 import axios from 'axios';
 const baseUrl = '/api/passwords';
-// API NOT YET MODIFICATED FOR THESE!
 let token = null;
 
 const setToken = newToken => {
@@ -39,5 +38,5 @@ const erase = (id) => {
   return req.then(res => res.data);
 };
 
-const blogTools = { getAll, create, setToken, update, erase };
-export default blogTools;
+const pswTools = { getAll, create, setToken, update, erase };
+export default pswTools;
