@@ -1,11 +1,17 @@
 import React from 'react';
+const style= {
+  display: "inline-block",
+  backgroundColor: "black",
+  borderRadius: "5px",
+  padding: "3px",
+  margin: "3px",
+  color: "darkGreen"
+};
 
 const PswEntry = ({entry}) => {
-  console.log('entryx: ', entry);
-  console.log('type: ', typeof(entry));
   return(
-    <div id= {entry.id}>
-      perse
+    <div style= {style} className= "blackButtons">
+      {entry.page}
     </div>);
 };
 

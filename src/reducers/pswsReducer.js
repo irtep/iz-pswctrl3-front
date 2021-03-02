@@ -2,32 +2,40 @@ import pswTools from '../services/passwords';
 import { addNotification } from './notificationReducer';
 
 const pswsReducer = (state = [], action) => {
-  console.log('pswsReducer received ', action.type, action.data);
   switch (action.type) {
-    case 'SHOWLIST':
-      return state.concat([action.data]);
+    case 'NEWLIST':
+      let newList = state.concat([]);
+      action.data.forEach((item) => {
+        newList.push(item);
+      });
+      return newList;
     case 'ADD_NEW':
+      // should here refresh from db to get fresh stuff
       return state.concat([action.data]);
+    case 'CLEAR_LIST':
+      return [];
     default:
       return state
   }
 };
 
-//action creators
-
 // action creators
-export const save = (entry) => {
-  console.log('action creator received: ', entry);
+export const save = (entry, usersId) => {
+  console.log('entry incoming: ', entry);
   return async dispatch => {
     try {
       await pswTools.create(entry);
       dispatch(addNotification('new entry created', 5));
+      // better refresh all the list from db here....
+      const forDispatch = {
+        user: {id: usersId}, ...entry
+      };
       dispatch({
         type: 'ADD_NEW',
-        data: entry
+        data: forDispatch
       });
     } catch (e) {
-      dispatch(addNotification('that did not work, entry not created...', 7));
+      dispatch(addNotification('error: fill all fields, min length 3 on all fields', 10));
     }
   }
 };
@@ -36,10 +44,9 @@ export const getAll = (user) => {
   return async dispatch => {
     try {
       const allPsws = await pswTools.getAll(user);
-      console.log('allPsws ', allPsws);
       dispatch(addNotification('getting users passwords', 3));
       dispatch({
-        type: 'SHOWLIST',
+        type: 'NEWLIST',
         data: allPsws
       });
     } catch (e) {
@@ -47,5 +54,13 @@ export const getAll = (user) => {
     }
   };
 };
+
+export const clearPsws = () => {
+  return dispatch => {
+    dispatch({
+      type: 'CLEAR_LIST'
+    });
+  }
+}
 
 export default pswsReducer;
