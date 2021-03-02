@@ -4,6 +4,7 @@ import MainScreen from './components/MainScreen';
 import Notification from './components/Notification';
 import { useDispatch, useSelector } from 'react-redux';
 import { autoLogin } from './reducers/usersReducer';
+import { clearPsws } from './reducers/pswsReducer';
 import pswTools from './services/passwords';
 
 const style = {
@@ -17,6 +18,7 @@ const App = () => {
 
   // when app is loaded
   useEffect(() => {
+    dispatch(clearPsws());
     const loggedUserJSON = window.localStorage.getItem('uDetails');
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON);

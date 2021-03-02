@@ -48,7 +48,7 @@ export const autoLogin = (user) => {
 };
 
 
-export const logout = (x) => {
+export const logout = () => {
   return async dispatch => {
     pswTools.setToken('');
     window.localStorage.removeItem('uDetails');

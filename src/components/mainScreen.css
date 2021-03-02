@@ -1,0 +1,10 @@
+#gridContainer {
+  display: grid;
+  grid-template-columns: 25% 75%;
+  grid-template-rows: auto auto auto;
+  grid-template-areas:
+  'atUp atUp'
+  'atLeft atRight'
+  'atBottom atBottom';
+  grid-gap: 6px;
+};

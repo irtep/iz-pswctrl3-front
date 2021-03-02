@@ -11,7 +11,7 @@ const style = {
 }
 
 
-const NewPswForm = () => {
+const NewPswForm = ({toggleShow}) => {
   const dispatch = useDispatch();
   const page = useField('text');
   const username = useField('text');
@@ -20,8 +20,13 @@ const NewPswForm = () => {
 
   const newEntry = (e) => {
     e.preventDefault();
-    const entry = {page: page.value, username: username.value, password: password.value};
-    dispatch(save(entry));
+    const entry = {
+      page: page.value,
+      username: username.value,
+      password: password.value,
+    };
+    dispatch(save(entry, loggedIn[0].id));
+    toggleShow();
   };
 
   if (loggedIn === []) { return null; }

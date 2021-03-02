@@ -10,7 +10,7 @@ const setToken = newToken => {
 // get all
 const getAll = (usersId) => {
   const req = axios.get(baseUrl, usersId);
-  return req.then(res => res.data)//.filter( pswEntry => pswEntry.user.id === usersId);
+  return req.then(res => res.data);
 };
 
 // create
@@ -19,7 +19,6 @@ const create = async newObject => {
   const config = {
     headers: { Authorization: token },
   };
-
   const res = await axios.post(baseUrl, newObject, config);
   return res.data;
 };
