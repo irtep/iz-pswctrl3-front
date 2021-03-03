@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import NewPswForm from './NewPswForm';
 import PswEntry from './PswEntry';
+import DetailsComponent from './DetailsComponent';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../reducers/usersReducer';
 import { getAll, clearPsws } from '../reducers/pswsReducer';
@@ -22,7 +23,7 @@ const MainScreen = () => {
 
   useEffect(() => {
     dispatch(clearPsws());
-    dispatch(getAll(user));
+    dispatch(getAll());
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const logOutUser = () => {
@@ -49,7 +50,8 @@ const MainScreen = () => {
             return (
               <li key= {psw.id}>
                 <PswEntry
-                entry= {psw}/>
+                entry= {psw}
+                />
               </li>
             );
           } else {
@@ -59,7 +61,7 @@ const MainScreen = () => {
         </ul>
       </div>
       <div id= "rightCenter" style= {atRight}>
-        right center div
+        <DetailsComponent/>
       </div>
       <div id= "foots" style= {atBottom}>
         {showNewPswForm ?

@@ -4,12 +4,14 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import usersReducer from './reducers/usersReducer';
 import pswsReducer from './reducers/pswsReducer';
 import notiReducer from './reducers/notificationReducer'
+import detailsReducer from './reducers/detailsReducer';
 //import filterReducer from './reducers/filterReducer'
 
 const reducer = combineReducers({
   users: usersReducer,
   passes: pswsReducer,
   notifications: notiReducer,
+  details: detailsReducer
   //filters: filterReducer
 });
 const store = createStore(
