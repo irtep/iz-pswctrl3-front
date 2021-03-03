@@ -1,6 +1,7 @@
 import loginTools from '../services/login';
 import pswTools from '../services/passwords';
 import { addNotification } from './notificationReducer';
+import { clearDetails } from './detailsReducer';
 
 const usersReducer = ( state = [], action ) => {
   switch (action.type) {
@@ -53,6 +54,7 @@ export const logout = () => {
     pswTools.setToken('');
     window.localStorage.removeItem('uDetails');
     dispatch(addNotification(`logged out.`, 5));
+    dispatch(clearDetails());
     dispatch({
       type: 'LOGOUT',
       data: ''

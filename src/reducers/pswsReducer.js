@@ -11,7 +11,7 @@ const pswsReducer = (state = [], action) => {
       return newList;
     case 'ADD_NEW':
       // should here refresh from db to get fresh stuff
-      return state.concat([action.data]);
+        return state.concat([action.data]);
     case 'CLEAR_LIST':
       return [];
     default:
@@ -40,10 +40,10 @@ export const save = (entry, usersId) => {
   }
 };
 
-export const getAll = (user) => {
+export const getAll = () => {
   return async dispatch => {
     try {
-      const allPsws = await pswTools.getAll(user);
+      const allPsws = await pswTools.getAll();
       dispatch(addNotification('getting users passwords', 3));
       dispatch({
         type: 'NEWLIST',
