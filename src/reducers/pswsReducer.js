@@ -9,30 +9,26 @@ const pswsReducer = (state = [], action) => {
         newList.push(item);
       });
       return newList;
-    case 'ADD_NEW':
-      // should here refresh from db to get fresh stuff
-        return state.concat([action.data]);
+    case 'MODDED_LIST':
+      return action.data;
     case 'CLEAR_LIST':
       return [];
-    default:
-      return state
+    case 'PSW_DELETE':
+      return action.data;
+    default: return state;
   }
 };
 
 // action creators
 export const save = (entry, usersId) => {
-  console.log('entry incoming: ', entry);
   return async dispatch => {
     try {
       await pswTools.create(entry);
+      const updated = await pswTools.getAll();
       dispatch(addNotification('new entry created', 5));
-      // better refresh all the list from db here....
-      const forDispatch = {
-        user: {id: usersId}, ...entry
-      };
       dispatch({
-        type: 'ADD_NEW',
-        data: forDispatch
+        type: 'MODDED_LIST',
+        data: updated
       });
     } catch (e) {
       dispatch(addNotification('error: fill all fields, min length 3 on all fields', 10));
@@ -61,6 +57,56 @@ export const clearPsws = () => {
       type: 'CLEAR_LIST'
     });
   }
-}
+};
 
+export const deletePsw = (id) => {
+  return async dispatch => {
+    try {
+      await pswTools.erase(id);
+      const updated = await pswTools.getAll();
+      dispatch(addNotification('entry deleted!', 3));
+      dispatch({
+        type: 'MODDED_LIST',
+        data: updated
+      });
+    } catch (e){
+      dispatch(addNotification(`delete failed: ${e}`, 10));
+    }
+  };
+};
+/*
+// update a certain field for certain blog
+const update = (id, field, newValue) => {
+  const config = {
+    headers: { Authorization: token },
+  };
+  const data = { field: field, newValue: newValue };
+  const req = axios.put(`${baseUrl}/${id}`, data, config);
+  return req.then(res => res.data);
+};
+*/
+export const edit = (entry, entryId) => {
+  return async dispatch => {
+    try {
+      // {page: "ssss", username: "", password: ""}
+      if (entry.page !== '') {
+        await pswTools.update(entryId, 'page', entry.page);
+      }
+      if (entry.username !== '') {
+        await pswTools.update(entryId, 'username', entry.username);
+      }
+      if (entry.password !== '') {
+        await pswTools.update(entryId, 'password', entry.password);
+      }
+      const updated = await pswTools.getAll();
+      dispatch(addNotification('entry deleted!', 3));
+      dispatch({
+        type: 'MODDED_LIST',
+        data: updated
+      });
+    } catch (e){
+      dispatch(addNotification(`edit failed: ${e}`, 10));
+    }
+  };
+};
 export default pswsReducer;

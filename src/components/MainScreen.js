@@ -39,7 +39,7 @@ const MainScreen = () => {
     <div>
     <div id= "gridContainer">
       <div id= "heads" style= {atUp}>
-      logged in as {user[0].name} &nbsp;
+      logged in as <span className= "whiteText">{user[0].name}</span> &nbsp;
       <button className= "blackButtons" onClick= {logOutUser}>log out</button>
       </div>
       <div id= "leftCenter" style= {atLeft}>

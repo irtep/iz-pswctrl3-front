@@ -1,16 +1,65 @@
 * {
   background-color: #1E1B1B;
+  color: gray;
+}
+
+input {
+  margin: 6px;
+}
+
+.whiteText {
+  color: white;
 }
 
 .blackButtons {
-  color: yellow;
+  color: blue;
+  background-color: black;
+  border-radius: 5px;
+  border-color: black;
+  text-shadow: 0 0 1px gray;
 }
 .blackButtons:hover {
   color: cyan;
   cursor: pointer;
 }
 
-input {
+.greenButtons {
+  display: inline-block;
+  background-color: black;
+  border-radius: 5px;
+  padding: 3px;
+  margin: 3px;
+  color: darkGreen;
+}
+.greenButtons:hover {
+  color: green;
+  cursor: pointer;
+}
+
+.yellowButtons {
+  border-color: black;
+  display: inline-block;
+  background-color: black;
+  border-radius: 5px;
+  padding: 3px;
+  margin: 3px;
   color: gold;
-  margin: 10px;
+}
+.yellowButtons:hover {
+  color: yellow;
+  cursor: pointer;
+}
+
+.redButtons {
+  border-color: black;
+  display: inline-block;
+  background-color: black;
+  border-radius: 5px;
+  padding: 3px;
+  margin: 3px;
+  color: crimson;
+}
+.redButtons:hover {
+  color: white;
+  cursor: pointer;
 }

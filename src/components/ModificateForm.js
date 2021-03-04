@@ -1,38 +1,38 @@
 import React from 'react';
 import { useField } from '../hooks';
-import { save } from '../reducers/pswsReducer';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { edit } from '../reducers/pswsReducer';
 const style = {
   margin: "10px",
   padding: "8px",
   border: "solid 2px blue",
   borderRadius: "5px",
   width: "350px"
-}
+};
 
-
-const NewPswForm = ({toggleShow}) => {
+const ModificateForm = ({showModPswForm, entryId}) => {
   const dispatch = useDispatch();
   const page = useField('text');
   const username = useField('text');
   const password = useField('text');
-  const loggedIn = useSelector(state => state.users);
 
-  const newEntry = (e) => {
+  const modEntry = (e) => {
     e.preventDefault();
     const entry = {
       page: page.value,
       username: username.value,
       password: password.value,
     };
-    dispatch(save(entry, loggedIn[0].id));
-    toggleShow();
+    dispatch(edit(entry, entryId));
+    showModPswForm();
   };
 
-  if (loggedIn === []) { return null; }
   return(
     <div style= {style}>
-      <form onSubmit={newEntry}>
+      <form onSubmit={modEntry}>
+        enter new values. <br/>
+        <span className= "whiteText">leave empty values you don't want to modificate!</span>
+        <br/>
         page:
         <input {...page} />
         <br/>
@@ -42,10 +42,10 @@ const NewPswForm = ({toggleShow}) => {
         password:
         <input {...password} />
         <br/>
-        <button className= "blackButtons" >save new password</button>
+        <button className= "blackButtons" >modificate filled fields</button>
       </form>
     </div>
   );
 };
 
-export default NewPswForm;
+export default ModificateForm;
