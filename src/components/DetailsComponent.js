@@ -24,8 +24,10 @@ const DetailsComponent = () => {
     dispatch(addNotification('username copied to clipboard', 3));
   }
   const deleteEntry = () => {
-    dispatch(clearDetails());
-    dispatch(deletePsw(selectedPsw.id));
+    if (window.confirm(`delete psw of: ${selectedPsw.page}?`)) {
+      dispatch(clearDetails());
+      dispatch(deletePsw(selectedPsw.id));
+    }
   };
 
   const userTools = <div><input

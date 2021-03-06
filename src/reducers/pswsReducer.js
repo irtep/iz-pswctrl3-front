@@ -1,5 +1,6 @@
 import pswTools from '../services/passwords';
 import { addNotification } from './notificationReducer';
+import { clearDetails } from './detailsReducer';
 
 const pswsReducer = (state = [], action) => {
   switch (action.type) {
@@ -23,6 +24,7 @@ const pswsReducer = (state = [], action) => {
 export const save = (entry, usersId) => {
   return async dispatch => {
     try {
+      dispatch(addNotification('wait. working on it', 6));
       await pswTools.create(entry);
       const updated = await pswTools.getAll();
       dispatch(addNotification('new entry created', 5));
@@ -31,7 +33,7 @@ export const save = (entry, usersId) => {
         data: updated
       });
     } catch (e) {
-      dispatch(addNotification('error: fill all fields, min length 3 on all fields', 10));
+      dispatch(addNotification(`${e}`, 10));
     }
   }
 };
@@ -39,14 +41,15 @@ export const save = (entry, usersId) => {
 export const getAll = () => {
   return async dispatch => {
     try {
+      dispatch(addNotification('wait. getting list', 6));
       const allPsws = await pswTools.getAll();
-      dispatch(addNotification('getting users passwords', 3));
+      dispatch(addNotification('got password list', 3));
       dispatch({
         type: 'NEWLIST',
         data: allPsws
       });
     } catch (e) {
-      dispatch(addNotification('error fetching passwords', 7));
+      dispatch(addNotification(`error fetching passwords ${e}`, 7));
     }
   };
 };
@@ -62,9 +65,11 @@ export const clearPsws = () => {
 export const deletePsw = (id) => {
   return async dispatch => {
     try {
+      dispatch(addNotification('wait. working on it', 6));
       await pswTools.erase(id);
       const updated = await pswTools.getAll();
       dispatch(addNotification('entry deleted!', 3));
+      dispatch(clearDetails());
       dispatch({
         type: 'MODDED_LIST',
         data: updated
@@ -74,21 +79,11 @@ export const deletePsw = (id) => {
     }
   };
 };
-/*
-// update a certain field for certain blog
-const update = (id, field, newValue) => {
-  const config = {
-    headers: { Authorization: token },
-  };
-  const data = { field: field, newValue: newValue };
-  const req = axios.put(`${baseUrl}/${id}`, data, config);
-  return req.then(res => res.data);
-};
-*/
+
 export const edit = (entry, entryId) => {
   return async dispatch => {
+    dispatch(addNotification('wait. working on it', 6));
     try {
-      // {page: "ssss", username: "", password: ""}
       if (entry.page !== '') {
         await pswTools.update(entryId, 'page', entry.page);
       }
@@ -99,7 +94,8 @@ export const edit = (entry, entryId) => {
         await pswTools.update(entryId, 'password', entry.password);
       }
       const updated = await pswTools.getAll();
-      dispatch(addNotification('entry deleted!', 3));
+      dispatch(addNotification('edited selected fields.', 3));
+      dispatch(clearDetails());
       dispatch({
         type: 'MODDED_LIST',
         data: updated
