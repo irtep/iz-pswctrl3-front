@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 const style = {
   margin: "10px",
   padding: "8px",
-  border: "solid 2px yellow",
+  border: "solid 2px blue",
   borderRadius: "5px",
   width: "350px"
 }
@@ -26,7 +26,7 @@ const LoginForm = () => {
   if (loggedIn === []) { return null; }
   return(
     <div style= {style}>
-      login:
+      <span className= "whiteText">login:</span>
       <form onSubmit={logIn}>
         username:
         <input {...username} />

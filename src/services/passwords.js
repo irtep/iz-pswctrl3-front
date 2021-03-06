@@ -27,8 +27,11 @@ const create = async newObject => {
 
 // update a certain field for certain blog
 const update = (id, field, newValue) => {
+  const config = {
+    headers: { Authorization: token },
+  };
   const data = { field: field, newValue: newValue };
-  const req = axios.put(`${baseUrl}/${id}`, data);
+  const req = axios.put(`${baseUrl}/${id}`, data, config);
   return req.then(res => res.data);
 };
 

@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { autoLogin } from './reducers/usersReducer';
 import { clearPsws } from './reducers/pswsReducer';
 import pswTools from './services/passwords';
+import usersTools from './services/user';
 
 const style = {
   backgroundColor: '#1E1B1B',
@@ -24,6 +25,7 @@ const App = () => {
       const user = JSON.parse(loggedUserJSON);
       dispatch(autoLogin(loggedUserJSON));
       pswTools.setToken(user.token);
+      usersTools.setToken(user.token);
     }
   // ignoring lint as i need this only when app starts.
   // eslint-disable-next-line react-hooks/exhaustive-deps

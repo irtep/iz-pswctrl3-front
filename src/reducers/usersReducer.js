@@ -1,5 +1,6 @@
 import loginTools from '../services/login';
 import pswTools from '../services/passwords';
+import usersTools from '../services/user';
 import { addNotification } from './notificationReducer';
 import { clearDetails } from './detailsReducer';
 
@@ -24,6 +25,7 @@ export const login = ({username, password}) => {
       });
       // login ok
       pswTools.setToken(userx.token);
+      usersTools.setToken(userx.token);
       window.localStorage.setItem(
         'uDetails', JSON.stringify(userx)
       );
@@ -61,5 +63,24 @@ export const logout = () => {
     });
   }
 };
+
+export const changeAccountPassword = (data) => {
+  return async dispatch => {
+    dispatch(addNotification('working on it. wait.'));
+    try {
+      await usersTools.changePw(data);
+      dispatch(addNotification('ok, changed.'));
+    } catch (e) {
+      dispatch(addNotification(`${e}`, 5));
+    }
+  };
+};
+/*
+this comes from backend: so continue from here
+new hash:  $2b$10$vc1y.OasWrJC3IBvmxGE2OjjAwMCt9pODDgZ2aK0TXXWC1YHfM0Rm
+passwordHash is not defined
+ReferenceError: passwordHash is not defined
+    at C:\Users\Käyttäjä\github\IZ-Pswctrl3-rest\controllers\users.js:50:49
+*/
 
 export default usersReducer;
