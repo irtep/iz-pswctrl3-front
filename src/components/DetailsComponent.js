@@ -1,23 +1,23 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { addNotification } from '../reducers/notificationReducer';
 import { deletePsw } from '../reducers/pswsReducer';
 import { clearDetails } from '../reducers/detailsReducer';
+import { changeShow } from '../reducers/showAndHideReducer';
 import { copyToClipboard } from '../utils';
 import ModificateForm from './ModificateForm';
 
 const DetailsComponent = () => {
   const dispatch = useDispatch();
-  const [ showModPswForm, setShowMpF ] = useState(false);
-  const [ showPsw, setShow ] = useState(false);
+  const showAndHide = useSelector(state => state.showAndHide);
   const selectedPsw = useSelector(state => state.details);
   let pswField = '';
 
   const toggleShow = () => {
-    setShow(!showPsw);
+    dispatch(changeShow('showPsw'));
   };
   const toggleShowModForm = () => {
-    setShowMpF(!showModPswForm);
+    dispatch(changeShow('showModPswForm'));
   };
   const copyToCp = () => {
     copyToClipboard(selectedPsw.username)
@@ -56,7 +56,7 @@ const DetailsComponent = () => {
   };
 
   if (selectedPsw !== '') {
-    if (showPsw) {
+    if (showAndHide.showPsw) {
       pswField = `password: ${selectedPsw.password}`;
     } else {
       pswField = '';
@@ -72,7 +72,7 @@ const DetailsComponent = () => {
       userTools:
       <></>}
       <div>
-        {showModPswForm?
+        {showAndHide.showModPswForm?
         <ModificateForm
           showModPswForm= {toggleShowModForm}
           entryId = {selectedPsw.id}/>:

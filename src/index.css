@@ -36,6 +36,11 @@ input {
   cursor: pointer;
 }
 
+.grayButtons:hover {
+  color: white;
+  cursor: pointer;
+}
+
 .yellowButtons {
   border-color: black;
   display: inline-block;
