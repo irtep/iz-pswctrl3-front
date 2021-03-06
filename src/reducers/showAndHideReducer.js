@@ -2,7 +2,8 @@ const initialState = {
   showModPswForm: false,
   showNewPswForm: false,
   showPsw: false,
-  showMyAccount: false
+  showMyAccount: false,
+  adminTools: false
 }
 
 const showAndHideReducer = ( state = initialState, action ) => {

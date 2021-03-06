@@ -15,17 +15,13 @@ const changePw =  async (data) => {
   return response.data;
 };
 
-const usersTools = { setToken, changePw };
-export default usersTools;
-
-/*
-// update a certain field for certain blog
-const update = (id, field, newValue) => {
-  const config = {
-    headers: { Authorization: token },
-  };
-  const data = { field: field, newValue: newValue };
-  const req = axios.put(`${baseUrl}/${id}`, data, config);
-  return req.then(res => res.data);
+const resetUsersPsw = ({user, newPsw}) => {
+  console.log('reset req: ', user, newPsw);
 };
-*/
+
+const createNewUser = (name, username, password, admin) => {
+  console.log('create user req: ', name, username, password, admin);
+};
+
+const usersTools = { setToken, changePw, resetUsersPsw, createNewUser };
+export default usersTools;

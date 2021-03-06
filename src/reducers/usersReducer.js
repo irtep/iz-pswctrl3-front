@@ -75,12 +75,5 @@ export const changeAccountPassword = (data) => {
     }
   };
 };
-/*
-this comes from backend: so continue from here
-new hash:  $2b$10$vc1y.OasWrJC3IBvmxGE2OjjAwMCt9pODDgZ2aK0TXXWC1YHfM0Rm
-passwordHash is not defined
-ReferenceError: passwordHash is not defined
-    at C:\Users\Käyttäjä\github\IZ-Pswctrl3-rest\controllers\users.js:50:49
-*/
 
 export default usersReducer;
