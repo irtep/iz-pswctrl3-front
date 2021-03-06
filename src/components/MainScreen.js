@@ -3,6 +3,7 @@ import NewPswForm from './NewPswForm';
 import PswEntry from './PswEntry';
 import DetailsComponent from './DetailsComponent';
 import MyAccount from './MyAccount';
+import AdminTools from './AdminTools';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../reducers/usersReducer';
 import { getAll, clearPsws } from '../reducers/pswsReducer';
@@ -42,13 +43,21 @@ const MainScreen = () => {
     dispatch(changeShow('showMyAccount'));
   }
 
+  const admins = () => {
+    console.log('admins..');
+    dispatch(changeShow('adminTools'));
+  }
+
   return (
     <div>
       <div id= "gridContainer">
         <div id= "heads" style= {atUp}>
         logged in as <span className= "whiteText">{user[0].name}</span> &nbsp;
         <button className= "redButtons" onClick= {logOutUser}>log out</button> &nbsp;
-        <button className= "blackButtons" onClick= {myAccount}>my account</button>
+        <button className= "blackButtons" onClick= {myAccount}>my account</button> &nbsp;
+        {user[0].admin?
+        <button className= "redButtons" onClick= {admins}>admin tools</button>:
+        <></>}
         </div>
         <div id= "leftCenter" style= {atLeft}>
           saved passwords:
@@ -72,6 +81,11 @@ const MainScreen = () => {
           {showAndHide.showMyAccount?
           <MyAccount/>:
           <DetailsComponent/>}
+          <div>
+            {showAndHide.adminTools?
+            <AdminTools/>:
+            <></>}
+          </div>
         </div>
         <div id= "foots" style= {atBottom}>
           {showAndHide.showNewPswForm ?
