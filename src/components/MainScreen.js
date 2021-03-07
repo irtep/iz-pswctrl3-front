@@ -7,7 +7,7 @@ import AdminTools from './AdminTools';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../reducers/usersReducer';
 import { getAll, clearPsws } from '../reducers/pswsReducer';
-import { changeShow } from '../reducers/showAndHideReducer';
+import { changeShow, resetShows } from '../reducers/showAndHideReducer';
 import './mainScreen.css';
 
 const atUp = {
@@ -32,6 +32,7 @@ const MainScreen = () => {
   }, []);
   const logOutUser = () => {
     dispatch(clearPsws());
+    dispatch(resetShows());
     dispatch(logout());
   };
 
