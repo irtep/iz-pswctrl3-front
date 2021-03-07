@@ -12,16 +12,22 @@ const AdminTools = () => {
   const newUsername = useField('text');
   const newPassword = useField('text');
 
-  const resetPassword = (e) => {
+  const resetPassword = async (e) => {
     e.preventDefault();
     const forReset = {
       user: resetUser.value,
       newPsw: resetPsw.value
     }
     dispatch(addNotification('ok, reseting', 5));
-    usersTools.resetUsersPsw(forReset);
+    try {
+      await usersTools.resetUsersPsw(forReset);
+      dispatch(addNotification('reseted!', 3));
+    } catch (e) {
+      dispatch(addNotification(`error: ${e}`, 3));
+    }
   };
-  const addNewUser = (e) => {
+  
+  const addNewUser = async (e) => {
     e.preventDefault();
     const newUser = {
       name: newName.value,
@@ -33,7 +39,11 @@ const AdminTools = () => {
     console.log('admin: ', adminChoose.checked);
     if (adminChoose.checked) { newUser.admin = true; }
     dispatch(addNotification('adding new user', 5));
-    usersTools.createNewUser(newUser);
+    try {
+      usersTools.createNewUser(newUser);
+    } catch (e) {
+      console.log('e: ', e);
+    }
   };
   return(
     <div>
