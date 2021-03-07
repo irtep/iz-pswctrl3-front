@@ -10,7 +10,9 @@ import usersTools from './services/user';
 
 const style = {
   backgroundColor: '#1E1B1B',
-  color: '#B3A3A3'
+  color: '#B3A3A3',
+  width: '100vw',
+  height: '100vh'
 };
 
 const App = () => {
