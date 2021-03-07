@@ -9,10 +9,16 @@ import pswTools from './services/passwords';
 import usersTools from './services/user';
 
 const style = {
+  position: 'absolute',
   backgroundColor: '#1E1B1B',
   color: '#B3A3A3',
   width: '100vw',
-  height: '100vh'
+  height: '100vh',
+  padding: '10px',
+  border: '5px black solid',
+  borderRadius: '5px',
+  left: '0',
+  top: '0'
 };
 
 const App = () => {
