@@ -12,6 +12,8 @@ const showAndHideReducer = ( state = initialState, action ) => {
       const newState = {...state};
       newState[action.data] = !state[action.data];
       return newState;
+    case 'RESET_SHOWS':
+      return initialState;
     default: return state;
   };
 };
@@ -24,6 +26,14 @@ export const changeShow = (elem) => {
       data: elem
     });
   }
+};
+
+export const resetShows = () => {
+  return dispatch => {
+    dispatch({
+      type: 'RESET_SHOWS'
+    })
+  };
 };
 
 export default showAndHideReducer;

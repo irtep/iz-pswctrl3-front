@@ -3,6 +3,7 @@ import { useField } from '../hooks';
 import usersTools from '../services/user';
 import { useDispatch } from 'react-redux';
 import { addNotification } from '../reducers/notificationReducer';
+import { resetShows } from '../reducers/showAndHideReducer';
 
 const AdminTools = () => {
   const dispatch = useDispatch();
@@ -21,28 +22,32 @@ const AdminTools = () => {
     dispatch(addNotification('ok, reseting', 5));
     try {
       await usersTools.resetUsersPsw(forReset);
+      resetUser.value = '';
+      resetPsw.value = '';
       dispatch(addNotification('reseted!', 3));
     } catch (e) {
       dispatch(addNotification(`error: ${e}`, 3));
     }
+    dispatch(resetShows());
   };
-  
+
   const addNewUser = async (e) => {
     e.preventDefault();
+    const adminChoose = document.getElementById('isAdmin');
     const newUser = {
       name: newName.value,
       username: newUsername.value,
       password: newPassword.value,
       admin: false
     };
-    const adminChoose = document.getElementById('isAdmin');
-    console.log('admin: ', adminChoose.checked);
+
     if (adminChoose.checked) { newUser.admin = true; }
     dispatch(addNotification('adding new user', 5));
     try {
-      usersTools.createNewUser(newUser);
+      await usersTools.createNewUser(newUser);
+      dispatch(addNotification('added user', 5));
     } catch (e) {
-      console.log('e: ', e);
+      dispatch(addNotification(`error: ${e}`, 5));
     }
   };
   return(
@@ -63,9 +68,6 @@ const AdminTools = () => {
       <div>
         <span className= "whiteText">Create new user:</span>
         <form onSubmit={addNewUser} className= "adminForms">
-          enter new values. <br/>
-          <span className= "whiteText">leave empty values you don't want to modificate!</span>
-          <br/>
           name:
           <input {...newName} />
           <br/>
@@ -79,7 +81,7 @@ const AdminTools = () => {
           <input id= "isAdmin" type= "radio" name= "rights" value= "yes"/>yes
           <input type= "radio" name= "rights" value= "no"/>no
           <br/>
-          <button className= "blackButtons" >modificate filled fields</button>
+          <button className= "blackButtons" >add new user</button>
         </form>
       </div>
     </div>

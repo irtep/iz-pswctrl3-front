@@ -14,17 +14,16 @@ const MyAccount = () => {
   const changeAccountPsw = (e) => {
     e.preventDefault();
     if (newPsw.value !== newRepeated.value) {
-      console.log('different values');
       dispatch(addNotification('new passwords are now equal', 4));
     } else if (current.value === '' || newPsw.value === ''){
       dispatch(addNotification('empty fields.', 4));
     } else {
-      console.log('all cool');
       dispatch(changeAccountPassword({
         user: loggedIn[0].id,
         current: current.value,
         newPsw: newPsw.value
       }));
+      dispatch(addNotification('Password changed!.', 4));
     }
   };
 
