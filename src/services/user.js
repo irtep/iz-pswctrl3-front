@@ -15,8 +15,13 @@ const changePw =  async (data) => {
   return response.data;
 };
 
-const resetUsersPsw = ({user, newPsw}) => {
-  console.log('reset req: ', user, newPsw);
+const resetUsersPsw = async (data) => {
+  const config = {
+    headers: { Authorization: token },
+  };
+  console.log('reset req: ', data);
+  const response = await axios.put(`${baseUrl}/reset`, data, config);
+  return response.data;
 };
 
 const createNewUser = (name, username, password, admin) => {
