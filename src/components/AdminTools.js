@@ -47,7 +47,6 @@ const AdminTools = () => {
       await usersTools.createNewUser(newUser);
       dispatch(addNotification('added user', 5));
     } catch (e) {
-      console.log('e: ', e);
       dispatch(addNotification(`error: ${e}`, 5));
     }
   };

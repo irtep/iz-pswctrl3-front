@@ -45,7 +45,6 @@ const MainScreen = () => {
   }
 
   const admins = () => {
-    console.log('admins..');
     dispatch(changeShow('adminTools'));
   }
 
