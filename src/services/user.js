@@ -1,6 +1,6 @@
 import axios from 'axios';
-const baseUrl = '/api/login'; // prod
-//const baseUrl = 'http://localhost:3001/api/users' // dev
+//const baseUrl = '/api/login'; // prod
+const baseUrl = 'http://localhost:3001/api/users' // dev
 let token = null;
 
 const setToken = newToken => {

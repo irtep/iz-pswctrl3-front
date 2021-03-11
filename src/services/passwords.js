@@ -1,6 +1,6 @@
 import axios from 'axios';
-const baseUrl = '/api/passwords';  // prod
-//const baseUrl = 'http://localhost:3001/api/passwords'; // dev
+//const baseUrl = '/api/passwords';  // prod
+const baseUrl = 'http://localhost:3001/api/passwords'; // dev
 let token = null;
 
 const setToken = newToken => {
