@@ -18,11 +18,13 @@ clone both to different places.
 install dependencies to both.
 
 npm run build to frontend.
-replace build folder of backend with this fresh build from front.
+replace build folder of backend with this fresh build from front,
 
-set in backend .env keys (and in place where you will deploy it)
+set in backend .env keys (and in place where you will deploy it),
 
-make configures with your mongoDb provider and place where you are hosting this.
+make configures with your mongoDb provider and place where you are hosting this,
+
+make admin account for example by stripping down some security or directly to your database, you need this to create user accounts.
 
 host/deploy.
 
